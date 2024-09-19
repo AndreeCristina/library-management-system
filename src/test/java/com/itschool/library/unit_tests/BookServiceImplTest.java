@@ -1,4 +1,4 @@
-package com.itschool.library;
+package com.itschool.library.unit_tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.library.models.dtos.RequestBookDTO;
