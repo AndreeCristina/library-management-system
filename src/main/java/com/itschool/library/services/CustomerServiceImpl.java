@@ -1,6 +1,7 @@
 package com.itschool.library.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itschool.library.exceptions.CustomerDeleteException;
 import com.itschool.library.models.dtos.RequestCustomerDTO;
 import com.itschool.library.models.dtos.ResponseCustomerDTO;
 import com.itschool.library.models.entities.Customer;
@@ -27,6 +28,13 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("Customer with id {} was saved", customerEntityResponse.getId());
 
         return objectMapper.convertValue(customerEntityResponse, ResponseCustomerDTO.class);
+    }
+
+    @Override
+    public void deleteCustomerById(Long id) {
+        customerRepository.findById(id).orElseThrow(() -> new CustomerDeleteException("customer with " + id + " not found"));
+        customerRepository.deleteById(id);
+        log.info("Customer with id {} was deleted", id);
     }
 }
 
